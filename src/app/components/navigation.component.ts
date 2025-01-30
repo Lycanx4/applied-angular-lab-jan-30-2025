@@ -1,12 +1,11 @@
-import { UpperCasePipe } from '@angular/common';
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import { FeatureDirective } from '@shared';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { NavigationListItemComponent } from './nav-list-item.component';
 
 @Component({
   selector: 'app-navigation',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, FeatureDirective, RouterLinkActive, UpperCasePipe],
+  imports: [RouterLink, NavigationListItemComponent],
   template: `
     <div class="navbar bg-base-100">
       <div class="navbar-start">
@@ -27,53 +26,14 @@ import { FeatureDirective } from '@shared';
               />
             </svg>
           </div>
-          <ul
-            tabindex="0"
-            class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
-          >
-            @for (link of links(); track link.href) {
-              @if (link.feature) {
-                <li>
-                  <a
-                    routerLinkActive="active"
-                    *feature="link.feature"
-                    [routerLink]="[link.href]"
-                    >{{ link.text }}</a
-                  >
-                </li>
-              } @else {
-                <li>
-                  <a routerLinkActive="active" [routerLink]="[link.href]">{{
-                    link.text
-                  }}</a>
-                </li>
-              }
-            }
-          </ul>
+          <app-nav-list-item
+            classNames="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+          />
         </div>
         <a class="btn btn-ghost text-xl" routerLink="">Applied Angular</a>
       </div>
       <div class="navbar-center hidden lg:flex">
-        <ul class="menu menu-horizontal px-1">
-          @for (link of links(); track link.href) {
-            @if (link.feature) {
-              <li>
-                <a
-                  routerLinkActive="active"
-                  *feature="link.feature"
-                  [routerLink]="[link.href]"
-                  >{{ link.text | uppercase }}</a
-                >
-              </li>
-            } @else {
-              <li>
-                <a routerLinkActive="active" [routerLink]="[link.href]">{{
-                  link.text | uppercase
-                }}</a>
-              </li>
-            }
-          }
-        </ul>
+        <app-nav-list-item classNames="menu menu-horizontal px-1" />
       </div>
       <div class="navbar-end">
         <a
@@ -105,6 +65,10 @@ export class NavigationComponent {
     {
       href: 'jeff-counter',
       text: 'Counter (Jeff)',
+    },
+    {
+      href: 'counter',
+      text: 'Counter',
     },
   ]);
 }

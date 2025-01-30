@@ -10,6 +10,11 @@ export const routes: Routes = [
       import('./resources/resources.routes').then((r) => r.RESOURCE_ROUTES),
   },
   {
+    path: 'books',
+    loadChildren: () =>
+      import('./books/books.routes').then((r) => r.BOOKS_ROUTES),
+  },
+  {
     path: 'demos',
     data: {
       preload: true,
@@ -30,6 +35,11 @@ export const routes: Routes = [
     },
     loadChildren: () =>
       import('./jeff-counter/counter.routes').then((r) => r.COUNTER_ROUTES),
+  },
+  {
+    path: 'counter',
+    loadChildren: () =>
+      import('./counter/counter.routes').then((r) => r.COUNTER_ROUTES),
   },
   {
     path: '**',
